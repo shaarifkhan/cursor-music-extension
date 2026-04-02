@@ -15,6 +15,47 @@
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Cursor Agent Music",
+      "properties": {
+        "cursorAgentMusic.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic music playback when the Cursor agent is active."
+        },
+        "cursorAgentMusic.musicSource": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to an audio file or directory of audio files. Leave blank to use the bundled default tracks."
+        },
+        "cursorAgentMusic.volume": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Playback volume passed to macOS afplay."
+        },
+        "cursorAgentMusic.shuffle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Shuffle tracks when musicSource points to a directory."
+        },
+        "cursorAgentMusic.fadeOutMs": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 10000,
+          "description": "Best-effort stop delay before playback is terminated. macOS afplay does not support native fades, so this is not a true volume fade."
+        },
+        "cursorAgentMusic.stateFilePath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path override for the shared Cursor Agent Music state file. Leave blank to use ~/.cursor/cursor-agent-music/agent-music-state.json."
+        }
+      }
+    }
+  },
   "scripts": {
     "compile": "tsc -p ./",
     "watch": "tsc -w -p ./",
