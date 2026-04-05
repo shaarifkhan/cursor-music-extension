@@ -16,6 +16,32 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "cursorAgentMusic.pickMusicSource",
+        "title": "Cursor Agent Music: Pick Music Source"
+      },
+      {
+        "command": "cursorAgentMusic.useBundledMusic",
+        "title": "Cursor Agent Music: Use Bundled Default Music"
+      },
+      {
+        "command": "cursorAgentMusic.playTest",
+        "title": "Cursor Agent Music: Start Test Playback"
+      },
+      {
+        "command": "cursorAgentMusic.stopTest",
+        "title": "Cursor Agent Music: Stop Test Playback"
+      },
+      {
+        "command": "cursorAgentMusic.toggleEnabled",
+        "title": "Cursor Agent Music: Toggle Enabled"
+      },
+      {
+        "command": "cursorAgentMusic.openHookConfig",
+        "title": "Cursor Agent Music: Open Hook Config"
+      }
+    ],
     "configuration": {
       "title": "Cursor Agent Music",
       "properties": {
