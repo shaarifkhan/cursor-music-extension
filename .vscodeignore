@@ -1,0 +1,8 @@
+src/**
+.cursor/**
+.vscode/**
+hooks/**
+node_modules/**
+package-lock.json
+tsconfig.json
+**/*.map
