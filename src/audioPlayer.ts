@@ -182,11 +182,7 @@ async function resolveTracks(musicSource: string): Promise<string[]> {
 
   const stat = await fs.stat(musicSource);
   if (stat.isDirectory()) {
-    const entries = await fs.readdir(musicSource, { withFileTypes: true });
-    return entries
-      .filter((entry) => entry.isFile())
-      .map((entry) => path.join(musicSource, entry.name))
-      .filter((filePath) => SUPPORTED_EXTENSIONS.has(path.extname(filePath).toLowerCase()));
+    return collectTracksFromDirectory(musicSource);
   }
 
   if (stat.isFile()) {
@@ -194,6 +190,30 @@ async function resolveTracks(musicSource: string): Promise<string[]> {
   }
 
   throw new Error('The configured music source must be a file or a directory.');
+}
+
+async function collectTracksFromDirectory(directoryPath: string): Promise<string[]> {
+  const entries = await fs.readdir(directoryPath, { withFileTypes: true });
+  const tracks: string[] = [];
+
+  for (const entry of entries) {
+    const entryPath = path.join(directoryPath, entry.name);
+
+    if (entry.isDirectory()) {
+      tracks.push(...await collectTracksFromDirectory(entryPath));
+      continue;
+    }
+
+    if (!entry.isFile()) {
+      continue;
+    }
+
+    if (SUPPORTED_EXTENSIONS.has(path.extname(entryPath).toLowerCase())) {
+      tracks.push(entryPath);
+    }
+  }
+
+  return tracks;
 }
 
 function shuffleInPlace(values: string[]): void {
